@@ -1,0 +1,14 @@
+#########
+#Exclude all
+#########
+*
+!*/
+!.gitignore
+#########
+#Source files:
+#########
+#Do NOT ignore VHDL, Verilog, block diagrams or EDIF files.
+!*.vhd
+!*.vhdl
+!*.v
+!*.sv
