@@ -90,7 +90,7 @@ bit reset_pulse_gen_bfm = 1;
       )
       pulse_gen_bfm_inst (
       .reset(reset_pulse_gen_bfm),
-      .enable(1'b1),
+      .enable(enable),
       .pulse_gen_output(pulse_gen_output)
       );
 
