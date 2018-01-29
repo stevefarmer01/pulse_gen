@@ -23,7 +23,7 @@
 //Input times/clks - signals
 //delay/counters - widths and checks that input time not too long - parameters to set widths
 
-//`include "pulse_generator_pkg.sv"
+`include "pulse_generator_pkg.sv"
 import pulse_generator_pkg::*;
 
 
@@ -38,6 +38,8 @@ module pulse_generator
     input logic reset,
     input logic start,
     output logic pulse_out,
+    output logic pulse_out_s = 0,
+    output logic pulse_out_duplicate = 0,
     output logic pulse_generator_ready_after_reset
     );
 
@@ -48,8 +50,16 @@ logic [7:0] counter;
 //const logic [7:0] pulse_width_c = 1;
 
 //always_ff @(posedge clk) begin
-//  pulse_out_blah <= start;
+
+//always_comb begin
+assign  pulse_out_duplicate = pulse_out_s;
 //end
+
+//logic pulse_out_s = 0;
+//assign pulse_out = pulse_out_s;
+//Below will fail if line above 'pulse_out_s' is not set to initial value of '0' 
+assert final ((pulse_out_duplicate && pulse_out_s)|(!pulse_out_duplicate && !pulse_out_s))
+      else $fatal("outputs 'pulse_out' and 'pulse_out_duplicate' functionality not working correctly") ;
 
 //enum {init_state, start_state, go_state, stop_state} state;
 enum {reset_delay_state, init_state, start_state, go_state} state;
@@ -58,7 +68,7 @@ enum {reset_delay_state, init_state, start_state, go_state} state;
  always_ff @(posedge clk)
     if (reset) begin
 //       state <= reset_delay_state;
-       pulse_out <= 0;
+       pulse_out_s <= 0;
        pulse_generator_ready_after_reset = 0;
        counter <= reset_delay_c-1;
        state <= reset_delay_state;
@@ -74,7 +84,7 @@ enum {reset_delay_state, init_state, start_state, go_state} state;
           init_state : begin
             if (start == 1) begin
               if (start_delay_c-1 == 0) begin
-                pulse_out <= 1;
+                pulse_out_s <= 1;
                 counter <= pulse_width_c-1;
                 state <= go_state;
               end
@@ -86,7 +96,7 @@ enum {reset_delay_state, init_state, start_state, go_state} state;
           end
           start_state : begin
              if (counter == 0) begin
-                pulse_out <= 1;
+                pulse_out_s <= 1;
                 counter <= pulse_width_c-1;
                 state <= go_state;
               end
@@ -94,7 +104,7 @@ enum {reset_delay_state, init_state, start_state, go_state} state;
           end
           go_state : begin
              if (counter == 0) begin
-                pulse_out <= 0;
+                pulse_out_s <= 0;
                 state <= init_state;
               end
               else counter <= counter-1;

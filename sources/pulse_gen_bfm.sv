@@ -7,7 +7,7 @@ module pulse_gen_bfm
     parameter time non_active_time_p = 100ns
     )
     (
-    input bit reset,
+    input bit reset = 0,
     input bit enable,
     output bit pulse_gen_output
     );
@@ -35,8 +35,8 @@ always begin : pulse_block
 end
 
 always_comb begin
-// pulse_gen_output = (enable) ? pulse : 0;
- pulse_gen_output = (enable) ? pulse : pulse;
+pulse_gen_output = (enable) ? pulse : 0;
+//  pulse_gen_output = (enable) ? pulse : pulse;
 end
 
 //assert final (^s1 !== '0);
