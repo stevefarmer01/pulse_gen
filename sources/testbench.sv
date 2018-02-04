@@ -100,7 +100,8 @@ bit reset_pulse_gen_bfm = 1;
       .non_active_time_p(5ns)
       )
       pulse_gen_bfm_inst_1 (
-      .enable(1),
+      .reset(reset_pulse_gen_bfm),
+      .enable(1'b1),
       .pulse_gen_output(pulse_gen_output_1)
       );
 
@@ -123,6 +124,8 @@ bit reset_pulse_gen_bfm = 1;
       .reset(reset),
       .start(start),
       .pulse_out(pulse_out_asyn),
+      .pulse_out_s(open),
+      .pulse_out_duplicate(open),
       .pulse_generator_ready_after_reset(pulse_generator_ready_after_reset_asyn)
       );
 
