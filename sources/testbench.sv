@@ -23,6 +23,7 @@ module tbench_top
 //  )
   ();
 
+
   //clock and reset signal declaration
   bit clk = 1;
   bit reset;
@@ -125,6 +126,20 @@ bit reset_pulse_gen_bfm = 1;
       .pulse_out_duplicate(open),
       .pulse_generator_ready_after_reset(pulse_generator_ready_after_reset_asyn)
       );
+
+//A a1();
+//defparam a1.b1.P = 0;
+// Inside an RTL module of a design
+
+//logic probe_this;
+//assign probe_this = sub_module1.sub_module2.sub_module3.signal_to_probe;
+
+logic duplicate_pulse_out_s;
+always_comb duplicate_pulse_out_s = dut.pulse_out_s;
+
+logic duplicate_counter_lsb;
+always_comb duplicate_counter_lsb = dut.counter[0];
+
 
 time reset_release_time, pulse_generator_ready_time_after_reset, pulse_active_time_after_reset, pulse_deactivates_time_after_reset, pulse_activate, pulse_active, pulse_generator_ready_after_reset_time, start_pulse_active_time_after_reset;
 bit start_timing_checks = 0;
