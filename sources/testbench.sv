@@ -23,7 +23,6 @@ module tbench_top
 //  )
   ();
 
-  localparam clk_period_lp = 10ns;
   //clock and reset signal declaration
   bit clk = 1;
   bit reset;
@@ -34,16 +33,14 @@ module tbench_top
   bit reset_asyn;
   bit pulse_out_asyn;
   bit pulse_generator_ready_after_reset_asyn;
-//  localparam  clk_period_lp = 10ns;
-//  const time clk_period_lp = 10ns;
-//  parameter time clk_period_lp = 10ns;
+  localparam  clk_period_lp = 10ns;
+  time half_clk_period = clk_period_lp/2;
 
   initial
   //shall print %t with scaled in ns (-9), with 2 precision digits, and would print the " ns" string
     $timeformat(-9, 2, " ns", 20);
   //clock generation
   always begin
-    time half_clk_period = clk_period_lp/2;
     #half_clk_period clk = ~clk;
   end
   //forever #5 clk = !clk;
