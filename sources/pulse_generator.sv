@@ -23,7 +23,7 @@
 //Input times/clks - signals
 //delay/counters - widths and checks that input time not too long - parameters to set widths
 
-//`include "pulse_generator_pkg.sv"
+`include "pulse_generator_pkg.sv"
 import pulse_generator_pkg::*;
 
 
