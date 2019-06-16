@@ -60,6 +60,8 @@
       </File>
       <File Path="$PPRDIR/sources/pulse_generator.sv">
         <FileInfo>
+      <File Path="$PPRDIR/sources/pulse_generator.sv">
+        <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -113,6 +115,8 @@
         <Option Name="TransportIntDelay" Val="0"/>
         <Option Name="SrcSet" Val="sources_1"/>
         <Option Name="XSimWcfgFile" Val="$PPRDIR/tbench_top_behav.wcfg"/>
+        <Option Name="modelsim.compile.vlog.more_options" Val="-suppress 2244"/>
+        <Option Name="modelsim.simulate.log_all_signals" Val="true"/>
         <Option Name="NLNetlistMode" Val="funcsim"/>
       </Config>
     </FileSet>
@@ -136,6 +140,9 @@
     </Simulator>
     <Simulator Name="Riviera">
       <Option Name="Description" Val="Riviera-PRO Simulator"/>
+    </Simulator>
+    <Simulator Name="ActiveHDL">
+      <Option Name="Description" Val="Active-HDL Simulator"/>
     </Simulator>
   </Simulators>
   <Runs Version="1" Minor="10">

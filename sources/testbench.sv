@@ -19,11 +19,11 @@
 import pulse_generator_pkg::*;
 
 module tbench_top
-//  #(
+//  #(  
 //  )
   ();
 
-
+  localparam clk_period_lp = 10ns;
   //clock and reset signal declaration
   bit clk = 1;
   bit reset;
@@ -34,14 +34,16 @@ module tbench_top
   bit reset_asyn;
   bit pulse_out_asyn;
   bit pulse_generator_ready_after_reset_asyn;
-  localparam  clk_period_lp = 10ns;
-  time half_clk_period = clk_period_lp/2;
+//  localparam  clk_period_lp = 10ns;
+//  const time clk_period_lp = 10ns;
+//  parameter time clk_period_lp = 10ns;
 
   initial
   //shall print %t with scaled in ns (-9), with 2 precision digits, and would print the " ns" string
     $timeformat(-9, 2, " ns", 20);
   //clock generation
   always begin
+    time half_clk_period = clk_period_lp/2;
     #half_clk_period clk = ~clk;
   end
   //forever #5 clk = !clk;
@@ -88,7 +90,7 @@ bit reset_pulse_gen_bfm = 1;
       )
       pulse_gen_bfm_inst (
       .reset(reset_pulse_gen_bfm),
-      .enable(1'b1),
+      .enable(enable),
       .pulse_gen_output(pulse_gen_output)
       );
 
@@ -98,7 +100,8 @@ bit reset_pulse_gen_bfm = 1;
       .non_active_time_p(5ns)
       )
       pulse_gen_bfm_inst_1 (
-      .enable(1),
+      .reset(reset_pulse_gen_bfm),
+      .enable(1'b1),
       .pulse_gen_output(pulse_gen_output_1)
       );
 
@@ -121,6 +124,8 @@ bit reset_pulse_gen_bfm = 1;
       .reset(reset),
       .start(start),
       .pulse_out(pulse_out_asyn),
+      .pulse_out_s(open),
+      .pulse_out_duplicate(open),
       .pulse_generator_ready_after_reset(pulse_generator_ready_after_reset_asyn)
       );
 
